@@ -33,11 +33,11 @@
 
 
 			<!-- 日志依赖 -->
-			<dependency>
+			<!--<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>${log4j.version}</version>
-			</dependency>
+			</dependency>-->
 
 			<!-- 工具类，进行判空处理 -->
 			<dependency>
