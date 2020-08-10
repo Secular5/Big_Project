@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.mapper.CategoryMapper">
+	<resultMap type="category" id="CategoryResult">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+		<!-- 以列id的值作为条件  去发出第二条查询语句 去查询二级分类 -->
+		<collection property="categories" column="id" select="findSecondCategories"></collection>
+	</resultMap>
+	
+	<!-- 查询一级分类 -->
+	<select id="findCategories" resultMap="CategoryResult">
+		select * from es_category where parent_id = 0
+	</select>
+	
+	<!-- 查询二级分类 -->
+	<select id="findSecondCategories" parameterType="int" resultType="category">
+		select * from es_category where parent_id =#{id}
+	</select>
+
+</mapper>

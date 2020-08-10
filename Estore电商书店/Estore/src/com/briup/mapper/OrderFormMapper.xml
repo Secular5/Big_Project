@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.mapper.OrderFormMapper">
+	
+	<resultMap type="orderForm" id="OrderFormResult">
+		<id column="id" property="id"/>
+		<result column="cost" property="cost"/>
+		<result column="orderDate" property="orderdate"/>
+		<association property="shopAddress" column="shopAddress_id" select="findShopAddressById"></association>
+	</resultMap>
+
+	<select id="findShopAddressById" parameterType="int" resultType="shopAddress">
+		select * from es_shopAddress where id = #{id}
+	</select>
+	
+	<insert id="insertOrderForm" parameterType="orderForm" useGeneratedKeys="true">
+		insert into es_orderform(cost,orderDate,shopAddress_id,customer_id)
+		values(#{cost},#{orderdate},#{shopAddress.id},#{customer.id})
+	</insert>
+	
+	<select id="findOrderFormWithShopAddress" resultMap="OrderFormResult">
+		select * from es_orderform
+	</select>
+	
+</mapper>
